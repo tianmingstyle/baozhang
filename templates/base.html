@@ -1,0 +1,172 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Home Website
+    </title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"/>
+    <style>
+        .content {
+            width: 70%;
+            float: left;
+        }
+
+        .third_part {
+            width: 20%;
+            float: left;
+            margin: 0 15px;
+        }
+        .userimg{
+            float:left;
+        }
+        .summary{
+            float:left;
+        }
+        .test{
+            clear:left;
+        }
+        .post_item_summary {
+            line-height: 1.8em;
+            margin-bottom: 5px;
+            color: #333;
+            overflow: hidden;
+            padding-right: 5px;
+            font-size: 12px;
+            padding-top: 5px;
+        }
+        .pfs {
+            height: 96px;
+            width: 96px;
+            padding: 1px;
+            margin-top: 3px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="mynav">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">老子的技术论坛</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        {% if not kwargs.article_type_id %}
+                            <li class="active"><a href="/">全部 <span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                            <li><a href="/">全部 <span class="sr-only">(current)</span></a></li>
+                        {% endif %}
+
+                        {% for i in article_type_list %}
+                            {% if i.0 == kwargs.article_type_id %}
+                                <li class="active"><a href="/all/{{ i.0 }}.html">{{ i.1 }}</a></li>
+                            {% else %}
+                                <li><a href="/all/{{ i.0 }}.html">{{ i.1 }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+{#                        <li><a href="#">tianming</a></li>#}
+{#                        <li><a href="#">我的博客</a></li>#}
+{#                        <li><a href="#">管理</a></li>#}
+{#                        {% comment %}<li><a href="#">|</a></li>{% endcomment %}#}
+{#                        <li><a href="#">退出</a></li>#}
+                        {% if request.COOKIES.username %}
+                            <li><a href="#">{{ request.COOKIES.username }}</a></li>
+                            <li><a href="/mybolg">我的博客</a></li>
+                            <li><a href="/management">管理</a></li>
+                            <li><a href="/logout">退出</a></li>
+                        {% else %}
+                            <li><a href="/login">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
+
+    <div class="content">
+
+        {% block content %}
+            {% for article in data_list %}
+                <h1><a href="/get_content?article_id={{ article.id }}">{{ article.title }}</a></p></h1><p>
+{#                <div class="img_summary">#}
+{#                     <div class="userimg">#}
+{#                        <img src="/{{ article.user.img }}" alt=""/>#}
+{#                    </div>#}
+{#                    <div class="summary">#}
+{#                        <p>{{ article.summary }}</p>#}
+{#                    </div>#}
+{#                    <div class="test"></div>#}
+{#                </div>#}
+                <p class="post_item_summary">
+                    <a href="" class="imgp"><img class="pfs" src="/{{ article.user.img }}" alt=""/></a>{{ article.summary }}
+                </p>
+
+
+
+
+
+                <span class="glyphicon glyphicon-user" aria-hidden="true">{{ article.user.username }}</span> 发布于
+                <span>{{ article.ctime|date:'Y-m-d' }}</span>
+                {% for a in like_list %}
+                    {% if a == article.id %}
+{#                        111#}
+                        {#                        {{ likes.a }}#}
+                                                <span class="glyphicon glyphicon-hand-up" aria-hidden="true">0</span>
+                    {% endif %}
+                {% endfor %}
+                <hr/>
+            {% endfor %}
+        {% endblock content %}
+        <div class="paginator">
+            {% include "paginator.html" %}
+        </div>
+
+    </div>
+
+
+    <div class="third_part">
+        <div>
+            <h2>Recommend</h2>
+            <p> "The Apache Software Foundation is a cornerstone of the modern Open Source software ecosystem –
+                supporting some of the most widely used and important software solutions powering today's Internet
+                economy." – Mark Driver, Research Vice President, Gartner
+
+                Lauded among the most successful influencers in Open Source, The Apache Software Foundation's commitment
+                to collaborative development has long served as a model for producing consistently high quality software
+                that advances the future of open development. https://s.apache.org/PIRA</p>
+        </div>
+        <div>
+            <h2>Best articles</h2>
+            <p>
+                The all-volunteer ASF develops, stewards, and incubates more than 350 Open Source projects and
+                initiatives that cover a wide range of technologies. From Accumulo to Zookeeper, if you are looking for
+                a rewarding experience in Open Source and industry leading software, chances are you are going to find
+                it here. Are you powered by Apache?
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
