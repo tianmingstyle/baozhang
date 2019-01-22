@@ -179,6 +179,7 @@ def get_content(request):
 
 
 def get_mycontent(request):
+    blog_obj = models.Blog.objects.filter(uid__username=request.session['username'])[0]
     art_id = request.GET.get("article_id")
     content_obj = models.Article.objects.filter(id=art_id).first()
 

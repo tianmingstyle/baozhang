@@ -1,4 +1,16 @@
 {% extends "blogbase.html" %}
+  {% block headersection %}
+        {{ request.session.username }}
+        {{ blog_obj.summary }}
+  {% endblock headersection %}
 
+        {% block leftsection %}
+        文章的各种分类
+        {% endblock leftsection %}
+
+
+        {% block contentsection %}
+            {{ content_obj.detail }}
+        {% endblock contentsection %}
 
 
