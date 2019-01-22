@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blogbase</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div>
+    <div class="headersection">
+        {% block headersection %}
+        博主名字
+        {% endblock headersection %}
+    </div>
+    <div class="leftsection">
+        {% block leftsection %}
+        文章的各种分类
+        {% endblock leftsection %}
+    </div>
+    <div class="contentsection">
+        {% block contentsection %}
+        博主的文章
+        {% endblock contentsection %}
+    </div>
+</div>
+</body>
+</html>

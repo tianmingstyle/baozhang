@@ -11,6 +11,16 @@ from io import BytesIO
 #from utils.check_code import create_validate_code
 from utilities.ck_code import check_code
 
+def blog(request, *args, **kwargs):
+    article_list = models.Article.objects.filter(user__username=kwargs['suffix'])
+    blog_obj = models.Blog.objects.filter(suffix=kwargs['suffix'])[0]
+    return render(request, 'blog.html',
+                  {'blog_obj': blog_obj,
+                   'article_list': article_list
+                   }
+                  )
+    #return HttpResponse('somebody blog...')
+
 def cktestmain(request):
     return render(request, 'checkcode.html')
 
@@ -48,9 +58,11 @@ def login(request):
             # if userobj.exists() and userobj[0].pwd == pwd:
             # res = redirect('/')
             # res.set_cookie('username', user)
+            blog_obj = models.Blog.objects.filter(uid__username=user)[0]
             request.session['username'] = user
             request.session['is_login'] = True
-            request.session.set_expiry(15)
+            request.session['suffix'] = blog_obj.suffix
+            request.session.set_expiry(600)
             return redirect('/')
             # else:
             #     return redirect('/login')
@@ -86,9 +98,11 @@ def register(request):
             except Exception as e:
                 print(e)
             #return HttpResponse('ok...')
-            res = redirect('/')
-            res.set_cookie('username', user)
-            return res
+            # res = redirect('/')
+            # res.set_cookie('username', user)
+            request.session['username'] = user
+            request.session['is_login'] = True
+            return redirect('/')
         else:
             errors = regForm.errors
             print errors
@@ -162,3 +176,10 @@ def get_content(request):
     content_obj = models.Article.objects.filter(id=art_id).first()
 
     return render(request, 'content.html', locals())
+
+
+def get_mycontent(request):
+    art_id = request.GET.get("article_id")
+    content_obj = models.Article.objects.filter(id=art_id).first()
+
+    return render(request, 'mycontent.html', locals())

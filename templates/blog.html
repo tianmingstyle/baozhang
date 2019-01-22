@@ -1,0 +1,10 @@
+{% extends 'blogbase.html' %}
+{% block headersection %}
+    {{ blog_obj.summary }}
+{% endblock headersection %}
+
+{% block contentsection %}
+    {% for article in article_list %}
+        <h5><a href="/get_mycontent?article_id={{ article.id }}">{{ article.title }}</a></h5>
+    {% endfor %}
+{% endblock contentsection %}
