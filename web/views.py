@@ -1,16 +1,34 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from web.myforms import MyForm, MyLoginForm
 from repository import models
 from utilities.my_paginator import Mypaginator
+from io import BytesIO
+#from django.utils.check_code import create_validate_code
+#from utils.check_code import create_validate_code
+from utilities.ck_code import check_code
+
+def cktestmain(request):
+    return render(request, 'checkcode.html')
+
+def cktest(request):
+    f = BytesIO()
+    img, code = check_code()
+    img.save(f, 'PNG')
+    checkcode = f.getvalue()
+    #return render(request, 'checkcode.html', locals())
+
+
+    return HttpResponse(f.getvalue())
 
 
 def logout(request):
-    del request.COOKIES['username']
+    # del request.COOKIES['username']
+    #request.session.clear()
+    request.session.flush()
     return redirect('/')
 
 
@@ -22,16 +40,20 @@ def login(request):
         obj = MyLoginForm(request.POST)
         if obj.is_valid():
             user = str(obj.cleaned_data['user'])
-            pwd = str(obj.cleaned_data['pwd'])
-            print(user, pwd)
-            userobj = models.User.objects.filter(username=user)
-            print(userobj.exists(), userobj[0].pwd)
-            if userobj.exists() and userobj[0].pwd == pwd:
-                res = redirect('/')
-                res.set_cookie('username', user)
-                return res
-            else:
-                return redirect('/login')
+            # pwd = str(obj.cleaned_data['pwd'])
+            # print(user, pwd)
+            # userobj = models.User.objects.filter(username=user)
+            # print(userobj[0])
+            # print(userobj.exists(), userobj[0].pwd)
+            # if userobj.exists() and userobj[0].pwd == pwd:
+            # res = redirect('/')
+            # res.set_cookie('username', user)
+            request.session['username'] = user
+            request.session['is_login'] = True
+            request.session.set_expiry(15)
+            return redirect('/')
+            # else:
+            #     return redirect('/login')
         else:
             #errors = obj.errors
             return render(request, 'login.html', {'form': obj})

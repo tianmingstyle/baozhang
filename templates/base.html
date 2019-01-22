@@ -87,8 +87,8 @@
 {#                        <li><a href="#">管理</a></li>#}
 {#                        {% comment %}<li><a href="#">|</a></li>{% endcomment %}#}
 {#                        <li><a href="#">退出</a></li>#}
-                        {% if request.COOKIES.username %}
-                            <li><a href="#">{{ request.COOKIES.username }}</a></li>
+                        {% if request.session.username %}
+                            <li><a href="#">{{ request.session.username }}</a></li>
                             <li><a href="/mybolg">我的博客</a></li>
                             <li><a href="/management">管理</a></li>
                             <li><a href="/logout">退出</a></li>

@@ -6,8 +6,8 @@
 <body>
 <form action="/login" method="post">
         {% csrf_token %}
-        <p>用户名:{{ form.user }} {{ form.user.errors }}</p>
-        <p>密码：{{ form.pwd }} {{ form.pwd.errors }}</p>
+        <p>用户名:{{ form.user }} {{ form.user.errors.0 }}</p>
+        <p>密码：{{ form.pwd }} {{ form.non_field_errors.0 }}</p>
         <input type="submit"/>
 </form>
 </body>

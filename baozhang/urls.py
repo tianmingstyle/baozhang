@@ -25,5 +25,7 @@ urlpatterns = [
     url(r'^logout', views.logout),
     url(r'^get_content', views.get_content),
     url(r'^$', views.index),
+    url(r'^cktest.html', views.cktest),
+    url(r'^cktestmain', views.cktestmain),
 
 ]

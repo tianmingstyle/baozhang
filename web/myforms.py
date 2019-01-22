@@ -30,3 +30,20 @@ class MyForm(Form):
 class MyLoginForm(Form):
     user = fields.CharField(max_length=32)
     pwd = fields.CharField(max_length=32)
+
+    def clean_user(self):
+        user = self.cleaned_data['user']
+        user_obj = User.objects.filter(username=user)
+        if user_obj.exists():
+            return user
+
+    def clean(self):
+        user = self.cleaned_data['user']
+        user_obj = User.objects.filter(username=user)
+        if user_obj.exists():
+            # user_obj = User.objects.filter(username=user)[0]
+            # print(user_obj)
+            if self.cleaned_data['pwd'] == user_obj[0].pwd:
+                return self.cleaned_data
+            else:
+                raise ValidationError("%s' pwd is wrong...." % user)
