@@ -22,9 +22,10 @@ class Article(models.Model):
     title = models.CharField(verbose_name='标题',max_length=64)
     summary = models.CharField(verbose_name='简介',max_length=128)
     detail = models.TextField(verbose_name='详细内容')
-    ctime = models.DateField(verbose_name='cte time',auto_now_add=True)
+    ctime = models.DateField(verbose_name='ctetime',auto_now_add=True)
     cls = models.ForeignKey("Classification")
     tag = models.ManyToManyField("Tag")
+    blog = models.ForeignKey("Blog", default=1)
     type_choices = [
         (1, 'Python'),
         (2, 'Linux'),
@@ -102,7 +103,7 @@ class Baozhang(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(verbose_name='biaoti', max_length=32)
-    suffix = models.CharField(verbose_name='houzui', max_length=32)
+    suffix = models.CharField(verbose_name='houzui', max_length=32, unique=True)
     theme = models.CharField(verbose_name='zhuti', max_length=32)
     summary = models.CharField(verbose_name='jitang', max_length=128)
     uid = models.OneToOneField("User")

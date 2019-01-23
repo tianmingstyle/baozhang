@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^cktest.html', views.cktest),
     url(r'^cktestmain', views.cktestmain),
     url(r'^(?P<suffix>\w+).html', views.blog),
+    url(r'^(?P<suffix>\w+)/(?P<condition>((tag)|(category)|(date))/(?P<condition_id>\w+)).html', views.blogcontent),
 
 ]

@@ -10,13 +10,41 @@ from io import BytesIO
 #from django.utils.check_code import create_validate_code
 #from utils.check_code import create_validate_code
 from utilities.ck_code import check_code
+from django.db.models import Count, Avg, Max, Min, Sum
+import pymysql
+from django.db import connection, connections
+
+
+def blogcontent(request, *args, **kwargs):
+    return HttpResponse('ok...')
 
 def blog(request, *args, **kwargs):
-    article_list = models.Article.objects.filter(user__username=kwargs['suffix'])
-    blog_obj = models.Blog.objects.filter(suffix=kwargs['suffix'])[0]
+    myblog = models.Blog.objects.filter(suffix=kwargs['suffix']).select_related('uid').first()
+    if not myblog:
+        return redirect('/')
+    tag_list = models.Tag.objects.filter(blog=myblog)
+    category_list = models.Classification.objects.filter(blog=myblog)
+    article_list = models.Article.objects.filter(user__username=kwargs['suffix']).order_by('-id')
+    #date_list = models.Article.objects.raw('select count(ctime) as num,date_format(ctime,"%%Y-%%m") as cctime from Article group by date_format(ctime,"%%Y-%%m")')
+    # date_list = models.Article.objects.aggregate(k=Count('ctime'))
+    # print(date_list)
+
+
+    connection.connect()
+    conn = connection.connection
+    cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+    cursor.execute("""select count(1) as num,date_format(ctime,'%Y-%m') as cctime from Article group by date_format(ctime,'%Y-%m')""")
+    date_list = cursor.fetchall()
+    print(date_list)
+    connection.close()
+
+    #blog_obj = models.Blog.objects.filter(suffix=kwargs['suffix'])[0]
     return render(request, 'blog.html',
-                  {'blog_obj': blog_obj,
-                   'article_list': article_list
+                  {'blog_obj': myblog,
+                   'article_list': article_list,
+                   'tag_list': tag_list,
+                   'category_list': category_list,
+                   'date_list': date_list
                    }
                   )
     #return HttpResponse('somebody blog...')
