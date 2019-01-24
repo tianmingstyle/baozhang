@@ -24,11 +24,11 @@ urlpatterns = [
     url(r'^login', views.login),
     url(r'^logout', views.logout),
     url(r'^get_content', views.get_content),
-    url(r'^get_mycontent', views.get_mycontent),
+    url(r'^(?P<suffix>\w+)/get_mycontent', views.get_mycontent),
     url(r'^$', views.index),
     url(r'^cktest.html', views.cktest),
     url(r'^cktestmain', views.cktestmain),
     url(r'^(?P<suffix>\w+).html', views.blog),
-    url(r'^(?P<suffix>\w+)/(?P<condition>((tag)|(category)|(date))/(?P<condition_id>\w+)).html', views.blogcontent),
+    url(r'^(?P<suffix>\w+)/(?P<condition>((tag)|(category)|(date)))/(?P<condition_id>\w+-*\w*).html', views.blog),
 
 ]

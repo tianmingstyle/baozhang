@@ -4,17 +4,46 @@
     <meta charset="UTF-8">
     <title>blogbase</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/{{ blog_obj.theme }}.css">
 </head>
 <body>
 <div>
     <div class="headersection">
         {% block headersection %}
-        博主名字
+            <h2>{{ user_obj.username }}</h2>
+
+            公告:
+            <ul>
+                <li>昵称:{{ user_obj.username }}</li>
+                <li>粉丝:{{ user_obj.fans.count }}</li>
+                <li>关注:0</li>
+                <li>邮箱:{{ user_obj.email }}</li>
+            </ul>
+            <h5>{{ blog_obj.summary }}</h5>
+            <a href="/">首页</a><a href="/{{ blog_obj.suffix }}.html"> 个人首页 </a><a href="/{{ blog_obj.suffix }}/management.html">管理</a>
         {% endblock headersection %}
     </div>
     <div class="leftsection">
         {% block leftsection %}
-        文章的各种分类
+        <p>个人筛选</p>
+    <div>
+        <span>按标签</span>
+        {% for tag in tag_list %}
+            <div><a href="/{{ blog_obj.suffix }}/tag/{{ tag.id }}.html">{{ tag.title }}({{ tag.article_set.count }})</a></div>
+        {% endfor %}
+    </div>
+    <div>
+     <span>按分类</span>
+        {% for ca in category_list %}
+            <div><a href="/{{ blog_obj.suffix }}/category/{{ ca.id }}.html">{{ ca.title }}({{ ca.article_set.count }})</a></div>
+        {% endfor %}
+    </div>
+    <div>
+        <span>按时间</span>
+        {% for d in date_list %}
+            <div><a href="/{{ blog_obj.suffix }}/date/{{ d.cctime }}.html">{{ d.cctime }}({{ d.num }})</a></div>
+        {% endfor %}
+    </div>
         {% endblock leftsection %}
     </div>
     <div class="contentsection">

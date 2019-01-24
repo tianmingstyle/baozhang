@@ -1,16 +1,12 @@
+<style>
+    h3{
+        color:darkslateblue;
+    }
+</style>
 {% extends "blogbase.html" %}
-  {% block headersection %}
-        {{ request.session.username }}
-        {{ blog_obj.summary }}
-  {% endblock headersection %}
-
-        {% block leftsection %}
-        文章的各种分类
-        {% endblock leftsection %}
-
-
-        {% block contentsection %}
-            {{ content_obj.detail }}
-        {% endblock contentsection %}
+{% block contentsection %}
+    <h3>{{ content_obj.title }}</h3>
+    {{ content_obj.detail }}
+{% endblock contentsection %}
 
 
