@@ -25,9 +25,11 @@ urlpatterns = [
     url(r'^logout', views.logout),
     url(r'^get_content', views.get_content),
     url(r'^(?P<suffix>\w+)/get_mycontent', views.get_mycontent),
+    url(r'^(?P<suffix>\w+)/(?P<article_id>\d+).html', views.get_mycontent, name="article_content"),
     url(r'^$', views.index),
     url(r'^cktest.html', views.cktest),
     url(r'^cktestmain', views.cktestmain),
+    url(r'^(?P<what>(un)*likes).html', views.likesOrunlikes),
     url(r'^(?P<suffix>\w+).html', views.blog),
     url(r'^(?P<suffix>\w+)/(?P<condition>((tag)|(category)|(date)))/(?P<condition_id>\w+-*\w*).html', views.blog),
 

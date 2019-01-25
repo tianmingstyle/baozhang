@@ -1,6 +1,14 @@
 {% extends 'blogbase.html' %}
 {% block contentsection %}
     {% for article in article_list %}
-        <h5><a href="/{{ blog_obj.suffix }}/get_mycontent?article_id={{ article.id }}">{{ article.title }}</a></h5>
+        <h5><a href="/{{ blog_obj.suffix }}/{{ article.id }}.html">{{ article.title }}</a></h5>
+        <div>
+            <span>{{ article.user }}</span>
+        </div>
+        <div>
+            {{ article.ctime|date:'m-d-Y' }}  阅读({{ article.readnum }})  <a href="#">评论({{ article.commentnum }})</a> <a href="#">编辑</a>
+        </div>
+        <hr>
     {% endfor %}
+
 {% endblock contentsection %}

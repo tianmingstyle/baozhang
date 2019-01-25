@@ -1,12 +1,30 @@
-<style>
-    h3{
-        color:darkslateblue;
-    }
-</style>
 {% extends "blogbase.html" %}
 {% block contentsection %}
-    <h3>{{ content_obj.title }}</h3>
+    <h3 id="{{ content_obj.id }}">{{ content_obj.title }}</h3>
     {{ content_obj.detail }}
+
+    <div>
+
+            <i id="likes" class="fa fa-heart-o fa-4" aria-hidden="true">({{ content_obj.upcount }})</i>
+
+
+            <i id="unlikes" class="fa fa-heartbeat fa-4" aria-hidden="true">({{ countent_obj.downcount }})</i>
+
+
+    </div>
+
+    <div>
+            {{ content_obj.ctime|date:'m-d-Y' }}  阅读({{ content_obj.readnum }})  <a href="#">评论({{ content_obj.commentnum }})</a> <a href="#">编辑</a>
+    </div>
+    <div>
+        评论列表:
+    </div>
+    <div>
+        分页区
+    </div>
+    <div>
+        kindEditor区
+    </div>
 {% endblock contentsection %}
 
 

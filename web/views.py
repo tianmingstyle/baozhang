@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
+import json
 from web.myforms import MyForm, MyLoginForm
 from repository import models
 from utilities.my_paginator import Mypaginator
@@ -13,7 +14,22 @@ from utilities.ck_code import check_code
 from django.db.models import Count, Avg, Max, Min, Sum
 import pymysql
 from django.db import connection, connections
+from django.db.models import F
 
+def likesOrunlikes(request, *args, **kwargs):
+    article_id = request.GET.get('article_id')
+    print(article_id)
+    if kwargs['what'] == 'likes':
+        models.Article.objects.filter(id=article_id).update(upcount=F('upcount')+1)
+        #likes = models.User_Article.objects.create(uid=,)
+        obj = models.Article.objects.filter(id=article_id).first()
+        #likes = models.User_Article.objects.filter(id=article_id,feels=1).count()
+        return HttpResponse(json.dumps({'status':'ok', 'likes': obj.upcount}))
+    else:
+        models.Article.objects.filter(id=article_id).update(downcount=F('downcount')+1)
+        obj = models.Article.objects.filter(id=article_id).first()
+        #unlikes = models.User_Article.objects.filter(id=article_id, feels=0).count()
+        return HttpResponse(json.dumps({'status':'ok','unlikes':obj.downcount}))
 
 def blogcontent(request, *args, **kwargs):
     print(kwargs)
@@ -232,7 +248,11 @@ def get_content(request):
 def get_mycontent(request, *args, **kwargs):
     blog_obj = models.Blog.objects.filter(suffix=kwargs['suffix']).first()
     user_obj = models.User.objects.filter(blog__suffix=kwargs['suffix']).first()
-    art_id = request.GET.get("article_id")
+    #art_id = request.GET.get("article_id")
+    art_id = kwargs.get('article_id')
+    likes = models.User_Article.objects.filter(aid__id=art_id, feels=1).count()
+    unlikes = models.User_Article.objects.filter(aid__id=art_id, feels=0).count()
+    #print('likes:%s, unlikes:%s'%(likes, unlikes))
     content_obj = models.Article.objects.filter(id=art_id).first()
     tag_list = models.Tag.objects.filter(blog=blog_obj)
     category_list = models.Classification.objects.filter(blog=blog_obj)
@@ -249,6 +269,8 @@ def get_mycontent(request, *args, **kwargs):
                    'tag_list': tag_list,
                    'category_list': category_list,
                    'content_obj': content_obj,
-                   'date_list': date_list
+                   'date_list': date_list,
+                   'likes': likes,
+                   'unlikes': unlikes
                    }
                   )

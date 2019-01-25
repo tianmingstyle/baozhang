@@ -23,6 +23,10 @@ class Article(models.Model):
     summary = models.CharField(verbose_name='简介',max_length=128)
     detail = models.TextField(verbose_name='详细内容')
     ctime = models.DateField(verbose_name='ctetime',auto_now_add=True)
+    readnum = models.IntegerField(default=0)
+    commentnum = models.IntegerField(default=0)
+    upcount = models.IntegerField(default=0)
+    downcount = models.IntegerField(default=0)
     cls = models.ForeignKey("Classification")
     tag = models.ManyToManyField("Tag")
     blog = models.ForeignKey("Blog", default=1)
@@ -118,9 +122,9 @@ class Blog(models.Model):
 
 class Comment(models.Model):
     content = models.CharField(verbose_name='pinglun', max_length=256)
-    ctime = models.DateField(verbose_name='crete time')
+    ctime = models.DateField(verbose_name='crete time', auto_now_add=True)
     pcomment = models.ForeignKey(to='self', null=True, blank=True)
-
+    article = models.ForeignKey("Article", default=1)
     class Meta:
         db_table = 'comment'
         verbose_name_plural = 'comment'
