@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^(?P<suffix>\w+)/get_mycontent', views.get_mycontent),
     url(r'^(?P<suffix>\w+)/(?P<article_id>\d+).html', views.get_mycontent, name="article_content"),
     url(r'^$', views.index),
+    url(r'^backmanage.html$', views.backmanage),
     url(r'^cktest.html', views.cktest),
     url(r'^cktestmain', views.cktestmain),
     url(r'^(?P<what>(un)*likes).html', views.likesOrunlikes),
