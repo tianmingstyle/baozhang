@@ -32,14 +32,14 @@
         .right{
             float:right;
         }
-        .h1-menu .item{
+        .h1-menu .item, .hr-menu .item{
             display:inline-block;
             padding:0 10px;
             color:#9d9d9d;
             line-height:48px;
         }
 
-        .h1-menu .item:hover{
+        .h1-menu .item:hover, .hr-menu .item:hover{
             background-color: blue;
         }
         .h1-menu .item-set{
@@ -52,6 +52,71 @@
         .h1-menu .item-set .sets{
             position: absolute;
             display: none;
+        }
+        .avatar{
+            display: inline-block;
+            position: relative;
+
+        }
+        .avatar .item{
+            height: 48px;
+
+            overflow: hidden;
+        }
+        .avatar:hover .sets{
+            display: block;
+        }
+        .avatar .sets{
+            position: absolute;
+            width:150px;
+            left:-90px;
+            display: none;
+            border:1px solid blue;
+            top: 48px;
+        }
+        .avatar .sets a{
+            display: block;
+        }
+
+        .pg-body .left-menu{
+            width:200px;
+            position: absolute;
+            top:48px;
+            left:0px;
+            bottom:0px;
+{#            background-color: red;#}
+        }
+        .pg-body .content{
+            position: absolute;
+            top:48px;
+            left:200px;
+            right:0px;
+            bottom:0px;
+{#            background-color: green;#}
+            overflow:scroll;
+
+        }
+        .left-menu .item-title{
+            padding:5x;
+            background-color: #dddddd;
+        }
+        .left-menu .item-content a{
+            display: block;
+            padding:5px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        .left-menu .item-content a:hover{
+            border-left: 5px solid blue;
+            border-right: 5px solid blue;
+
+        }
+        .hide{
+            display: none;
+        }
+        .avatar img{
+            width:48px;
+            height:48px;
         }
     </style>
 </head>
@@ -81,12 +146,56 @@
                 </div>
             </div>
         </div>
-        <div class="h1-menu right"></div>
+        <div class="hr-menu right">
+            <a class="item" href="">消息</a>
+            <a class="item" href="">通知</a>
+            <a class="item" href="">任务</a>
+            <div class="avatar right">
+                <a class="item" href="">
+                    <img src="/static/imgs/default.jpg" alt="">
+                </a>
+                <div class="sets">
+                    <a class="item" href="">菜单1</a>
+                    <a class="item" href="">菜单2</a>
+                    <a class="item" href="">菜单3</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="pg-body">
-        <div class="left-menu"></div>
+        <div class="left-menu">
+            <div class="item">
+                <div class="item-title title1">标题一</div>
+                <div class="item-content">
+                    <a href="">文章管理</a>
+                    <a href="">标签管理</a>
+                    <a href="">分类管理</a>
+                </div>
+                <div class="item-title title2">标题二</div>
+                <div class="item-content">
+                    <a href="">文章管理</a>
+                    <a href="">标签管理</a>
+                    <a href="">分类管理</a>
+                </div>
+                <div class="item-title title3">标题三</div>
+                <div class="item-content">
+                    <a href="">文章管理</a>
+                    <a href="">标签管理</a>
+                    <a href="">分类管理</a>
+                </div>
+{#                <div class="item-title">标题四</div>#}
+{#                <div class="item-content">#}
+{#                    <a href="">文章管理</a>#}
+{#                    <a href="">标签管理</a>#}
+{#                    <a href="">分类管理</a>#}
+{#                </div>#}
+            </div>
+        </div>
+
         <div class="content">
+            <div style="height:2000px;"></div>
             {% block content %}
+
             {% endblock content %}
         </div>
     </div>
@@ -95,6 +204,52 @@
     </div>
 
 {% block js %}
+    <script src="/static/jquery.min.js"></script>
+    <script>
+        $(function () {
+{#            choiceTitle();#}
+            choiceTitleEnhance();
+        })
+
+        function choiceTitleEnhance() {
+            $('.title1, .title2, .title3').click(function () {
+                if($(this).next().hasClass('hide')){
+                    $(this).next().removeClass('hide');
+{#                    $(this).siblings().filter('.item-content').each(function () {#}
+{#                        if($(this).hasClass('hide')){#}
+{##}
+{#                        }else {#}
+{#                            $(this).addClass('hide');#}
+{#                        }#}
+{#                    })#}
+                }else{
+                    $(this).next().addClass('hide');
+{#                    $(this).siblings().filter('.item-content').each(function () {#}
+{#                        if($(this).hasClass('hide')){#}
+{##}
+{#                        }else {#}
+{#                            $(this).addClass('hide');#}
+{#                        }#}
+{#                    })#}
+                }
+            })
+
+
+
+
+        }
+
+        function choiceTitle() {
+            $('.title1').click(function () {
+                if($(this).next().hasClass('hide')){
+                    $(this).next().removeClass('hide');
+                }else{
+                    $(this).next().addClass('hide');
+                }
+{#                console.log($(this).css());#}
+            })
+        }
+    </script>
 {% endblock js %}
 </body>
 </html>
