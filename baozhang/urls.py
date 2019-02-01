@@ -29,6 +29,8 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^backmanage.html$', views.backmanage),
     url(r'^cktest.html', views.cktest),
+    url(r'^(?P<username>\w+)/management', views.backmanage),
+    url(r'^(?P<username>\w+)/(?P<condition>((article)|(classification)|(tag)))', views.backmanage),
     url(r'^cktestmain', views.cktestmain),
     url(r'^(?P<what>(un)*likes).html', views.likesOrunlikes),
     url(r'^(?P<suffix>\w+).html', views.blog),

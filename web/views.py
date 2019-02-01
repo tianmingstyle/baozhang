@@ -16,8 +16,12 @@ import pymysql
 from django.db import connection, connections
 from django.db.models import F
 
-def backmanage(request):
-    return render(request, 'backmanage.html')
+def backmanage(request, *args, **kwargs):
+    #user = kwargs['username']
+
+    return render(request, 'backmanage1.html', {
+        'kwargs': kwargs,
+    })
 
 def likesOrunlikes(request, *args, **kwargs):
     article_id = request.GET.get('article_id')

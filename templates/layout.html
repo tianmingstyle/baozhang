@@ -10,118 +10,137 @@
     {% block css %}
     {% endblock css %}
     <style>
-        body{
-            margin:0;
+        body {
+            margin: 0;
         }
-        .pg-header{
-            height:48px;
+
+        .pg-header {
+            height: 48px;
             background-color: #222222;
-            min-width:1000px;
+            min-width: 1000px;
 
         }
-        .pg-header .logo{
-            color:#9d9d9d;
-            font-size:24px;
+
+        .pg-header .logo {
+            color: #9d9d9d;
+            font-size: 24px;
             line-height: 48px;
-            width:200px;
+            width: 200px;
             text-align: center;
         }
-        .left{
-            float:left;
-        }
-        .right{
-            float:right;
-        }
-        .h1-menu .item, .hr-menu .item{
-            display:inline-block;
-            padding:0 10px;
-            color:#9d9d9d;
-            line-height:48px;
+
+        .left {
+            float: left;
         }
 
-        .h1-menu .item:hover, .hr-menu .item:hover{
+        .right {
+            float: right;
+        }
+
+        .h1-menu .item, .hr-menu .item {
+            display: inline-block;
+            padding: 0 10px;
+            color: #9d9d9d;
+            line-height: 48px;
+        }
+
+        .h1-menu .item:hover, .hr-menu .item:hover {
             background-color: blue;
         }
-        .h1-menu .item-set{
-             display:inline-block;
+
+        .h1-menu .item-set {
+            display: inline-block;
             position: relative;
         }
-        .h1-menu .item-set:hover .sets{
-            display:block;
+
+        .h1-menu .item-set:hover .sets {
+            display: block;
         }
-        .h1-menu .item-set .sets{
+
+        .h1-menu .item-set .sets {
             position: absolute;
             display: none;
         }
-        .avatar{
+
+        .avatar {
             display: inline-block;
             position: relative;
-
+            height: 48px;
         }
-        .avatar .item{
+
+        .avatar .item {
             height: 48px;
 
             overflow: hidden;
         }
-        .avatar:hover .sets{
+
+        .avatar:hover .sets {
             display: block;
         }
-        .avatar .sets{
+
+        .avatar .sets {
             position: absolute;
-            width:150px;
-            left:-90px;
+            width: 150px;
+            left: -90px;
             display: none;
-            border:1px solid blue;
+            border: 1px solid blue;
             top: 48px;
         }
-        .avatar .sets a{
+
+        .avatar .sets a {
             display: block;
         }
 
-        .pg-body .left-menu{
-            width:200px;
+        .pg-body .left-menu {
+            width: 200px;
             position: absolute;
-            top:48px;
-            left:0px;
-            bottom:0px;
-{#            background-color: red;#}
+            top: 48px;
+            left: 0px;
+            bottom: 0px;
+        {#            background-color: red;#}
         }
-        .pg-body .content{
+
+        .pg-body .content {
             position: absolute;
-            top:48px;
-            left:200px;
-            right:0px;
-            bottom:0px;
-{#            background-color: green;#}
-            overflow:scroll;
+            top: 48px;
+            left: 200px;
+            right: 0px;
+            bottom: 0px;
+        {#            background-color: green;#} overflow: scroll;
 
         }
-        .left-menu .item-title{
-            padding:5x;
+
+        .left-menu .item-title {
+            padding: 5x;
             background-color: #dddddd;
         }
-        .left-menu .item-content a{
+
+        .left-menu .item-content a {
             display: block;
-            padding:5px;
+            padding: 5px;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
         }
-        .left-menu .item-content a:hover{
+
+        .left-menu .item-content a:hover {
             border-left: 5px solid blue;
             border-right: 5px solid blue;
 
         }
-        .hide{
+
+        .hide {
             display: none;
         }
-        .avatar img{
-            width:48px;
-            height:48px;
+
+        .avatar img {
+            width: 48px;
+            height: 48px;
         }
     </style>
 </head>
 <body>
-    <div class="pg-header">
+<div class="pg-header">
+    {% block pg-header %}
         <div class="logo left">
             还有谁不服的
         </div>
@@ -161,92 +180,96 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+    {% endblock pg-header %}
+
+
+{% block pg-body %}
     <div class="pg-body">
-        <div class="left-menu">
-            <div class="item">
-                <div class="item-title title1">标题一</div>
-                <div class="item-content">
-                    <a href="">文章管理</a>
-                    <a href="">标签管理</a>
-                    <a href="">分类管理</a>
-                </div>
-                <div class="item-title title2">标题二</div>
-                <div class="item-content">
-                    <a href="">文章管理</a>
-                    <a href="">标签管理</a>
-                    <a href="">分类管理</a>
-                </div>
-                <div class="item-title title3">标题三</div>
-                <div class="item-content">
-                    <a href="">文章管理</a>
-                    <a href="">标签管理</a>
-                    <a href="">分类管理</a>
-                </div>
-{#                <div class="item-title">标题四</div>#}
-{#                <div class="item-content">#}
-{#                    <a href="">文章管理</a>#}
-{#                    <a href="">标签管理</a>#}
-{#                    <a href="">分类管理</a>#}
-{#                </div>#}
+    <div class="left-menu">
+        <div class="item">
+            <div class="item-title title1">文章管理</div>
+            <div class="item-content">
+                <a href="{{ kwargs.username }}/article">文章</a>
+                <a href="{{ kwargs.username }}/tag">标签</a>
+                <a href="{{ kwargs.username }}/classification">分类</a>
             </div>
-        </div>
-
-        <div class="content">
-            <div style="height:2000px;"></div>
-            {% block content %}
-
-            {% endblock content %}
+            <div class="item-title title2">报章管理</div>
+            <div class="item-content">
+                <a href="">报章单</a>
+                <a href="">处理报章单</a>
+                <a href="">报章统计信息</a>
+            </div>
+            <div class="item-title title3">权限管理</div>
+            <div class="item-content">
+                <a href="">菜单</a>
+                <a href="">权限</a>
+                <a href="">角色</a>
+            </div>
+            {#                <div class="item-title">标题四</div>#}
+            {#                <div class="item-content">#}
+            {#                    <a href="">文章管理</a>#}
+            {#                    <a href="">标签管理</a>#}
+            {#                    <a href="">分类管理</a>#}
+            {#                </div>#}
         </div>
     </div>
-    <div class="pg-footer">
+{% endblock pg-body %}
 
-    </div>
+
+<div class="content">
+    <div style="height:2000px;"></div>
+    {% block content %}
+
+    {% endblock content %}
+</div>
+</div>
+<div class="pg-footer">
+
+</div>
 
 {% block js %}
     <script src="/static/jquery.min.js"></script>
     <script>
         $(function () {
-{#            choiceTitle();#}
+            {#            choiceTitle();#}
             choiceTitleEnhance();
         })
 
         function choiceTitleEnhance() {
             $('.title1, .title2, .title3').click(function () {
-                if($(this).next().hasClass('hide')){
+                if ($(this).next().hasClass('hide')) {
                     $(this).next().removeClass('hide');
-{#                    $(this).siblings().filter('.item-content').each(function () {#}
-{#                        if($(this).hasClass('hide')){#}
-{##}
-{#                        }else {#}
-{#                            $(this).addClass('hide');#}
-{#                        }#}
-{#                    })#}
-                }else{
+                    {#                    $(this).siblings().filter('.item-content').each(function () {#}
+                    {#                        if($(this).hasClass('hide')){#}
+                    {##}
+                    {#                        }else {#}
+                    {#                            $(this).addClass('hide');#}
+                    {#                        }#}
+                    {#                    })#}
+                } else {
                     $(this).next().addClass('hide');
-{#                    $(this).siblings().filter('.item-content').each(function () {#}
-{#                        if($(this).hasClass('hide')){#}
-{##}
-{#                        }else {#}
-{#                            $(this).addClass('hide');#}
-{#                        }#}
-{#                    })#}
+                    {#                    $(this).siblings().filter('.item-content').each(function () {#}
+                    {#                        if($(this).hasClass('hide')){#}
+                    {##}
+                    {#                        }else {#}
+                    {#                            $(this).addClass('hide');#}
+                    {#                        }#}
+                    {#                    })#}
                 }
             })
-
-
 
 
         }
 
         function choiceTitle() {
             $('.title1').click(function () {
-                if($(this).next().hasClass('hide')){
+                if ($(this).next().hasClass('hide')) {
                     $(this).next().removeClass('hide');
-                }else{
+                } else {
                     $(this).next().addClass('hide');
                 }
-{#                console.log($(this).css());#}
+                {#                console.log($(this).css());#}
             })
         }
     </script>
