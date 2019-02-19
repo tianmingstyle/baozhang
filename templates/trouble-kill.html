@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %}
+    trouble list
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+
+{% endblock css %}
+
+{% block content %}
+{#        <form action="/backend/trouble-create.html" method="post">#}
+{#            {% csrf_token %}#}
+{#            <p>{{ form.title }}{{ form.errors.title.0 }}</p>#}
+{#            <p>{{ form.detail }}{{ form.errors.detail.0 }}</p>#}
+{#            <input type="submit" value="提交">#}
+{#        </form>#}
+
+ <div>
+        报障管理/报障处理
+    </div>
+
+    <div>
+        <form action="/backend/trouble-kill-{{ nid }}.html" method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">标题<span>{{ form.title.errors.0 }}</span></label>
+                {{ form.title }}
+
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">详细 <span>{{ form.detail.errors.0 }}</span></label>
+                {{ form.detail }}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">解决方案<span>{{ form.solution.errors.0 }}</span></label>
+                {{ form.solution }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/kindeditor/kindeditor-all.js"></script>
+    <script>
+        $(function () {
+            initKindEditor();
+        });
+
+        function initKindEditor() {
+            var kind = KindEditor.create('#solution', {
+                width: '100%',       // 文本框宽度(可以百分比或像素)
+                height: '300px',     // 文本框高度(只能像素)
+                minWidth: 200,       // 最小宽度（数字）
+                minHeight: 300      // 最小高度（数字）
+            });
+        }
+    </script>
+{% endblock js %}

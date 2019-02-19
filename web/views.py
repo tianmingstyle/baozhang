@@ -136,7 +136,7 @@ def login(request):
             request.session['username'] = user
             request.session['is_login'] = True
             request.session['suffix'] = blog_obj.suffix
-            request.session.set_expiry(600)
+            request.session.set_expiry(6000)
             return redirect('/')
             # else:
             #     return redirect('/login')

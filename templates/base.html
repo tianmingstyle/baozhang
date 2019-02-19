@@ -90,7 +90,7 @@
                         {% if request.session.username %}
                             <li><a href="/{{ request.session.suffix }}.html">{{ request.session.username }}</a></li>
                             <li><a href="/myblog">我的博客</a></li>
-                            <li><a href="/{{ request.session.username }}/management">管理</a></li>
+                            <li><a href="/backend/index.html">管理</a></li>
                             <li><a href="/logout">退出</a></li>
                         {% else %}
                             <li><a href="/login">登录</a></li>

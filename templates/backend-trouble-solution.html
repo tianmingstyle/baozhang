@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block title %}
+    trouble list
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <style>
+        .createbtn a{
+            display:block;
+            float:right;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    <div>
+        报障管理/报障详情
+    </div>
+{#    <div class="createbtn">#}
+{#        <a href="/backend/trouble-create.html" class="btn btn-primary btn-lg" role="button">create baozhangdan</a>#}
+{#    </div>#}
+{#    <div>#}
+{#        <table class="table table-striped">#}
+{#          <tr>#}
+{#              <th>报障标题</th>#}
+{#              <th>状态</th>#}
+{#              <th>创建时间</th>#}
+{#              <th>处理人</th>#}
+{#              <th>操作</th>#}
+{#          </tr>#}
+{#            {% for trouble in trouble_list %}#}
+{#                <tr>#}
+{#                    <td>{{ trouble.title }}</td>#}
+{##}
+{#                        {% if trouble.status == 1 %}#}
+{#                            <td>wait_to_process</td>#}
+{#                            {% elif trouble.status == 2 %}#}
+{#                            <td>processing</td>#}
+{#                            {% elif trouble.status == 3 %}#}
+{#                            <td>finish to process</td>#}
+{#                        {% endif %}#}
+{#                    <td>{{ trouble.status }}</td>#}
+{#                    <td>{{ trouble.ctime }}</td>#}
+{#                    <td>{{ trouble.processor }}</td>#}
+{#                    <td><a href="/backend/trouble-list-{{ trouble.id }}-delete.html">删除</a>|<a href="/backend/trouble-list-{{ trouble.id }}-edit.html">编辑</a></td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#        </table>#}
+{#    </div>#}
+
+    <p>{{ obj.solution|safe }}</p>
+{#    {% autoescape off %}#}
+{#         <h1>123456</h1>#}
+{#    {% endautoescape %}#}
+{% endblock content %}

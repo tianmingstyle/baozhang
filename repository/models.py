@@ -87,8 +87,8 @@ class User(models.Model):
 
 
 class Baozhang(models.Model):
-    UUID = models.UUIDField(verbose_name='UUID', primary_key=True)
-    title = models.CharField(verbose_name='biaoti', max_length=32)
+    #UUID = models.UUIDField(verbose_name='UUID', primary_key=True)
+    title = models.CharField(verbose_name='biaoti', max_length=128)
     detail = models.TextField(verbose_name='xiangxineirong')
     uid = models.ForeignKey("User", related_name='bzd')
     processor = models.ForeignKey("User", null=True, blank=True, related_name='pbzd')
@@ -96,7 +96,7 @@ class Baozhang(models.Model):
     status = models.IntegerField(verbose_name='zhuangtai', choices=my_choices, default=1)
     ctime = models.DateField(verbose_name='create_time', auto_now_add=True)
     process_time = models.DateField(verbose_name='process time', auto_now_add=True)
-    solution = models.TextField(null=True)
+    solution = models.TextField(null=True, blank=True)
     pj_choice = [(1,'good'),(2, 'soso'),(3, 'bad')]
     pj = models.IntegerField(verbose_name='review', choices=pj_choice, default=2)
 

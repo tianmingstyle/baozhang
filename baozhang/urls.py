@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from web import views
 
@@ -35,5 +35,5 @@ urlpatterns = [
     url(r'^(?P<what>(un)*likes).html', views.likesOrunlikes),
     url(r'^(?P<suffix>\w+).html', views.blog),
     url(r'^(?P<suffix>\w+)/(?P<condition>((tag)|(category)|(date)))/(?P<condition_id>\w+-*\w*).html', views.blog),
-
+    url(r'^backend', include('backend.urls'))
 ]
